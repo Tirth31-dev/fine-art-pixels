@@ -79,27 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Mindful Designer — Graphic Design Agency" },
-      {
-        name: "description",
-        content:
-          "Independent graphic design studio shaping thoughtful identities, packaging, campaigns, and digital experiences.",
-      },
+      { name: "description", content: "Independent graphic design studio shaping thoughtful identities, packaging, campaigns, and digital experiences." },
       { name: "author", content: "Mindful Designer" },
       { property: "og:title", content: "Mindful Designer — Graphic Design Agency" },
-      {
-        property: "og:description",
-        content: "Thoughtful ideas, refined visuals, and modern graphic design.",
-      },
+      { property: "og:description", content: "Thoughtful ideas, refined visuals, and modern graphic design." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap",
-      },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap" },
       {
         rel: "stylesheet",
         href: appCss,
