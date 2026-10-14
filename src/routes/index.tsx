@@ -71,12 +71,13 @@ function Index() {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+        } else if (entry.boundingClientRect.bottom <= 0 || entry.boundingClientRect.top >= window.innerHeight) {
+          entry.target.classList.remove("is-visible");
         }
       }
     }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
     elements.forEach((element) => {
-      if (!element.classList.contains("is-visible")) observer.observe(element);
+      observer.observe(element);
     });
     return () => observer.disconnect();
   }, [filter]);
