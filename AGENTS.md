@@ -12,3 +12,4 @@
 ## Project architecture
 
 - Keep the public portfolio as a single scrolling home route because its section-to-section editorial composition is the core experience.
+- Implement imagery depth motion with CSS perspective and a client-effect hook inside reveal wrappers, rather than a WebGL scene, to preserve the existing portfolio composition and avoid extra rendering overhead.

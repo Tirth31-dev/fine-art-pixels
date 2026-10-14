@@ -9,6 +9,7 @@ import projectKinetic from "@/assets/project-kinetic.jpg";
 import projectNoir from "@/assets/project-noir.jpg";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useDepthMotion } from "@/hooks/use-depth-motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,7 @@ function Index() {
   const [contactOpen, setContactOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const filtered = filter === "All" ? projects : projects.filter((project) => project.category === filter);
+  useDepthMotion(filter);
 
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -103,7 +105,7 @@ function Index() {
           <p data-reveal style={delay(0.1)} className="absolute left-5 top-16 z-20 max-w-[220px] text-xs font-bold uppercase leading-relaxed md:left-10 md:top-[40%]">We shape thoughtful ideas into refined, visually powerful identities.</p>
           <p aria-hidden="true" className="display-type animate-fade-in absolute inset-x-0 top-12 text-center text-[clamp(4.2rem,15vw,14rem)] leading-none text-hero-ink/10">Mindful</p>
           <div data-reveal style={delay(0.2)} className="absolute inset-x-[12%] bottom-0 top-20 z-10 md:inset-x-[28%] md:top-12">
-            <img src={founderPortrait} alt="Founder and creative designer of Mindful Designer" width={1200} height={1600} className="size-full object-cover object-[50%_18%] mix-blend-multiply" />
+            <img data-depth="portrait" src={founderPortrait} alt="Founder and creative designer of Mindful Designer" width={1200} height={1600} className="size-full object-cover object-[50%_18%] mix-blend-multiply" />
           </div>
           <div data-reveal style={delay(0.35)} className="absolute bottom-9 left-5 z-30 md:left-10">
             <p className="mb-2 text-xs font-bold">©2026 / Independent studio</p>
