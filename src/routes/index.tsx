@@ -42,7 +42,7 @@ const services = [
   ["08", "UI/UX Design", "Useful digital experiences shaped with clarity and character."],
 ];
 
-const delay = (seconds: number): CSSProperties => ({ animationDelay: `${seconds.toFixed(2)}s` });
+const delay = (seconds: number): CSSProperties => ({ "--reveal-delay": `${seconds.toFixed(2)}s` } as CSSProperties);
 
 function SectionLabel({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return <div className={cn("flex items-center gap-3 text-[11px] font-bold uppercase", light ? "text-hero" : "text-primary")}><span aria-hidden="true">✦</span>{children}</div>;
@@ -75,11 +75,14 @@ function Index() {
           entry.target.classList.remove("is-visible");
         }
       }
-    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
-    elements.forEach((element) => {
-      observer.observe(element);
-    });
-    return () => observer.disconnect();
+    }, { threshold: 0.08, rootMargin: "0px 0px 12% 0px" });
+    // Observe a frame later so the hidden start state paints first and the
+    // transition has a position to ease away from.
+    const frame = requestAnimationFrame(() => elements.forEach((element) => observer.observe(element)));
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, [filter]);
 
   const submitInquiry = (event: FormEvent<HTMLFormElement>) => {
