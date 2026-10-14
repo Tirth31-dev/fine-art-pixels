@@ -9,6 +9,7 @@ import projectKinetic from "@/assets/project-kinetic.jpg";
 import projectNoir from "@/assets/project-noir.jpg";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useDepthMotion } from "@/hooks/use-depth-motion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,7 @@ function Index() {
   const [contactOpen, setContactOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const filtered = filter === "All" ? projects : projects.filter((project) => project.category === filter);
+  useDepthMotion(filter);
 
   useEffect(() => {
     const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -103,7 +105,7 @@ function Index() {
           <p data-reveal style={delay(0.1)} className="absolute left-5 top-16 z-20 max-w-[220px] text-xs font-bold uppercase leading-relaxed md:left-10 md:top-[40%]">We shape thoughtful ideas into refined, visually powerful identities.</p>
           <p aria-hidden="true" className="display-type animate-fade-in absolute inset-x-0 top-12 text-center text-[clamp(4.2rem,15vw,14rem)] leading-none text-hero-ink/10">Mindful</p>
           <div data-reveal style={delay(0.2)} className="absolute inset-x-[12%] bottom-0 top-20 z-10 md:inset-x-[28%] md:top-12">
-            <img src={founderPortrait} alt="Founder and creative designer of Mindful Designer" width={1200} height={1600} className="size-full object-cover object-[50%_18%] mix-blend-multiply" />
+            <img data-depth="portrait" src={founderPortrait} alt="Founder and creative designer of Mindful Designer" width={1200} height={1600} className="size-full object-cover object-[50%_18%] mix-blend-multiply" />
           </div>
           <div data-reveal style={delay(0.35)} className="absolute bottom-9 left-5 z-30 md:left-10">
             <p className="mb-2 text-xs font-bold">©2026 / Independent studio</p>
@@ -133,7 +135,7 @@ function Index() {
       <section id="portfolio" className="bg-hero-ink px-5 py-24 text-background md:px-10 md:py-32">
         <div className="mx-auto max-w-[1440px]"><div data-reveal className="flex flex-col gap-8 border-b border-background/20 pb-8 md:flex-row md:items-end md:justify-between"><div><SectionLabel light>Selected work / 02</SectionLabel><h2 className="display-type mt-5 text-5xl md:text-8xl">Work that<br />holds attention.</h2></div><p className="max-w-sm text-sm leading-6 text-background/60">A curated selection of identities, objects, and experiences created to stay relevant beyond the launch.</p></div>
           <div data-reveal className="flex gap-2 overflow-x-auto py-7" aria-label="Filter projects">{["All", "Brand Identity", "Packaging", "Creative Direction"].map((item) => <Button key={item} variant={filter === item ? "primary" : "ghost"} size="small" onClick={() => setFilter(item)} className={cn("whitespace-nowrap rounded-full border-background/20", filter !== item && "text-background")}>{item}</Button>)}</div>
-          <div className="grid gap-5 md:grid-cols-2">{filtered.map((project, index) => <article key={project.title} data-reveal style={delay(index * 0.08)} className={cn("reveal-lift group relative overflow-hidden bg-background text-foreground", project.size === "wide" && "md:col-span-2")}><button type="button" className="block w-full cursor-pointer text-left" onClick={() => setActiveProject(project)} aria-label={`View ${project.title} case study`}><div className={cn("overflow-hidden", project.size === "wide" ? "aspect-[16/8]" : "aspect-[4/5]")}><img src={project.image} alt={`${project.title} design project`} width={project.size === "wide" ? 1600 : project.title === "Aera Rituals" ? 1200 : 1104} height={project.size === "wide" ? 1104 : project.title === "Aera Rituals" ? 1200 : 1504} loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" /></div><div className="flex items-center justify-between p-5"><div><h3 className="text-lg font-extrabold">{project.title}</h3><p className="mt-1 text-[10px] uppercase text-muted-foreground">{project.category} / {project.year}</p></div><span className="grid size-11 place-items-center border border-border transition-colors group-hover:bg-primary group-hover:text-primary-foreground"><MoveUpRight size={18} /></span></div></button></article>)}</div>
+          <div className="grid gap-5 md:grid-cols-2">{filtered.map((project, index) => <article key={project.title} data-reveal style={delay(index * 0.08)} className={cn("reveal-lift group relative overflow-hidden bg-background text-foreground", project.size === "wide" && "md:col-span-2")}><button data-depth="project" type="button" className="block w-full cursor-pointer text-left" onClick={() => setActiveProject(project)} aria-label={`View ${project.title} case study`}><div className={cn("overflow-hidden", project.size === "wide" ? "aspect-[16/8]" : "aspect-[4/5]")}><img src={project.image} alt={`${project.title} design project`} width={project.size === "wide" ? 1600 : project.title === "Aera Rituals" ? 1200 : 1104} height={project.size === "wide" ? 1104 : project.title === "Aera Rituals" ? 1200 : 1504} loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" /></div><div className="flex items-center justify-between p-5"><div><h3 className="text-lg font-extrabold">{project.title}</h3><p className="mt-1 text-[10px] uppercase text-muted-foreground">{project.category} / {project.year}</p></div><span className="grid size-11 place-items-center border border-border transition-colors group-hover:bg-primary group-hover:text-primary-foreground"><MoveUpRight size={18} /></span></div></button></article>)}</div>
         </div>
       </section>
 
